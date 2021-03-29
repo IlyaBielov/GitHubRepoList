@@ -1,0 +1,22 @@
+table {
+  width: 100%;
+}
+
+.activeRow {
+  background-color: #f1f1f1;
+}
+
+.row {
+  cursor: pointer;
+
+  &:hover {
+    background-color: #f1f1f1;
+  }
+}
+
+.example-table-container {
+  position: relative;
+  max-height: 600px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}

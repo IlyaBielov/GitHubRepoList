@@ -1,0 +1,52 @@
+<div fxLayout="column" fxFlexAlign="start" fxFlex="50">
+  <mat-form-field appearance="outline" [formGroup]="searchFromGroup">
+    <mat-label>Search</mat-label>
+    <input matInput formControlName="search">
+    <button mat-icon-button matSuffix>
+      <mat-icon>search</mat-icon>
+    </button>
+  </mat-form-field>
+
+  <div class="example-table-container mat-elevation-z8">
+    <table *ngIf="dataSource.length > 0" mat-table [dataSource]="dataSource">
+      <!-- Position Column -->
+      <ng-container matColumnDef="position">
+        <th mat-header-cell *matHeaderCellDef>№</th>
+        <td mat-cell *matCellDef="let element"> {{element.position}} </td>
+      </ng-container>
+
+      <!-- Repo Column -->
+      <ng-container matColumnDef="full_name">
+        <th mat-header-cell *matHeaderCellDef>Name</th>
+        <td mat-cell *matCellDef="let element"> {{element.full_name}} </td>
+      </ng-container>
+
+      <!-- Stars Column -->
+      <ng-container matColumnDef="stargazers_count">
+        <th mat-header-cell *matHeaderCellDef>Stars</th>
+        <td mat-cell *matCellDef="let element">{{element.stargazers_count}} </td>
+      </ng-container>
+
+      <!-- Fav Column -->
+      <ng-container matColumnDef="favorite">
+        <th mat-header-cell *matHeaderCellDef>Favorite</th>
+        <td mat-cell *matCellDef="let element">
+          <button mat-icon-button>
+            <mat-icon [class.material-icons-outlined]="!element.favorite">grade_outline</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr
+        mat-row
+        class="row"
+        [class.activeRow]="currentRepo?.full_name === row?.full_name"
+        (click)="chooseCurrentRepo(row)"
+        *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  </div>
+</div>
+<div fxFlex="40" style="margin: 0 auto" *ngIf="currentRepo">
+  <app-repo-card [repoData]="currentRepo"></app-repo-card>
+</div>
